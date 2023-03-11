@@ -6,11 +6,16 @@
 >
 	<persistence-unit name="CursoJsfPU">
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/cursojsfprimefaces?autoReconnect=true" />
+			<property name="javax.persistence.jdbc.url" 
+			value="jdbc:postgresql://localhost:5433/cursojsfprimefaces?autoReconnect=true&amp;serverTimezone=UTC&amp;useSSL=false" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="root" />
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="org.hibernate.dialect.Dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+			
+			<property name="javax.persistence.jdbc.driver" 
+					  value="org.postgresql.Driver"/>
+			
+			<property name="org.hibernate.dialect.Dialect" 
+					  value="org.hibernate.dialect.PostgreSQL95Dialect"/>
 			
 			
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
