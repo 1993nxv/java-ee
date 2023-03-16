@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+
 import com.cursejavaee.erp.model.Empresa;
 
 
@@ -28,13 +29,10 @@ public class Empresas implements Serializable{
 	}
 
 	public List<Empresa> pesquisar(String nome) {
-		String jpql = "from Empresa where nomeFantasia like :nomeFantasia";
-		
-		TypedQuery<Empresa> query = manager.createQuery(jpql,Empresa.class);
-		
-		query.setParameter("nomeFantasia", nome + "%");
-
-		return query.getResultList();
+	    String jpql = "SELECT e FROM Empresa e WHERE lower(unaccent(e.razaoSocial)) like lower(unaccent(:razaoSocial))";
+	    TypedQuery<Empresa> query = manager.createQuery(jpql, Empresa.class);
+	    query.setParameter("razaoSocial", "%" + nome.replaceAll("[^a-zA-Z0-9\\s]", "") + "%");
+	    return query.getResultList();
 	}
 	
 	public List<Empresa> todas(){

@@ -18,11 +18,15 @@
     		
 		<h:form>
 			
+			<p:messages><p:autoUpdate/></p:messages>
+			
 			<p:toolbar>
 				<f:facet name="left">
 						<p:inputText placeholder="Digite um termo para pesquisa..."
-									 size="30"/>
-						<p:commandButton value="Pesquisar" icon="pi pi-search"/>
+									 size="30" value="#{gestaoEmpresasBean.termoPesquisa}"/>
+						<p:commandButton value="Pesquisar" icon="pi pi-search"
+										 actionListener="#{gestaoEmpresasBean.pesquisar}"
+										 update="empresasDataTable"/>
 						
 						<i class="pi pi-ellipsis-v"/>
 						
@@ -38,7 +42,7 @@
 					</f:facet>
 				</p:toolbar>
 				
-				<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}"
+				<p:dataTable id="empresasDataTable" value="#{gestaoEmpresasBean.listaEmpresas}"
 					var="empresa" emptyMessage="Nenhuma informação a ser exibida!"
 					paginator="true" rows="10" paginatorPosition="bottom">
 					
