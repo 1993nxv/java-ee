@@ -29,7 +29,8 @@ public class Empresas implements Serializable{
 	}
 
 	public List<Empresa> pesquisar(String nome) {
-	    String jpql = "SELECT e FROM Empresa e WHERE lower(unaccent(e.razaoSocial)) like lower(unaccent(:razaoSocial))";
+	    String jpql = "SELECT e FROM Empresa e WHERE lower(unaccent(e.razaoSocial)) "
+	    			  + "like lower(unaccent(:razaoSocial))";
 	    TypedQuery<Empresa> query = manager.createQuery(jpql, Empresa.class);
 	    query.setParameter("razaoSocial", "%" + nome.replaceAll("[^a-zA-Z0-9\\s]", "") + "%");
 	    return query.getResultList();
