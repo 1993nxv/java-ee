@@ -1,13 +1,13 @@
 package com.cursejavaee.erp.repository;
 
-import com.cursejavaee.erp.model.RamoAtividade;
-
 import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
+import com.cursejavaee.erp.model.RamoAtividade;
 
 public class RamoAtividades implements Serializable {
 	
@@ -23,13 +23,13 @@ public class RamoAtividades implements Serializable {
 	}
 	
 	public List<RamoAtividade> pesquisar(String descricao) {
-		String jpql = "from RamoAtividade where descricao like :descricao";
 
+		String jpql = "SELECT e FROM RamoAtividade e WHERE lower(unaccent(e.descricao)) "
+  			  		+ "like lower(unaccent(:descricao))";
 		TypedQuery<RamoAtividade> query = manager.createQuery(jpql, RamoAtividade.class);
-
-		query.setParameter("descricao", descricao + "%");
-
+		query.setParameter("descricao", "%" + descricao.replaceAll("[^a-zA-Z0-9\\s]", "") + "%");
 		return query.getResultList();
+		
 	}
 	
 }
