@@ -9,6 +9,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import com.cursejavaee.erp.model.Empresa;
 import com.cursejavaee.erp.model.RamoAtividade;
 import com.cursejavaee.erp.model.TipoEmpresa;
@@ -53,9 +55,13 @@ public class GestaoEmpresasBean implements Serializable {
 		
 		if(jaHouvePesquisa()) {
 			pesquisar();
+		}else {
+			todasEmpresas();
 		}
 		
 		messages.info("Empresa salva com sucesso.");
+		
+		PrimeFaces.current().ajax().update(Arrays.asList("frm:empresasDataTable", "frm:messages"));
 	}
 	
 
@@ -64,7 +70,7 @@ public class GestaoEmpresasBean implements Serializable {
 		
 		if (listaEmpresas.isEmpty()) {
 			messages.info("Sua consulta não retornou registros.");
-		}
+		}	
 	}
 	
 	public void todasEmpresas() {
