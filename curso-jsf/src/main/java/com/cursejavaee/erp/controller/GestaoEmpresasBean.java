@@ -1,6 +1,7 @@
 package com.cursejavaee.erp.controller;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.convert.Converter;
@@ -53,9 +54,11 @@ public class GestaoEmpresasBean implements Serializable {
 		if(jaHouvePesquisa()) {
 			pesquisar();
 		}
-		messages.info("Empresa cadastrada com sucesso.");
+		
+		messages.info("Empresa salva com sucesso.");
 	}
 	
+
 	public void pesquisar() {
 		listaEmpresas = empresas.pesquisar(termoPesquisa);
 		
