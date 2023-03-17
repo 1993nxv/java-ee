@@ -13,6 +13,7 @@ import com.cursejavaee.erp.model.RamoAtividade;
 import com.cursejavaee.erp.model.TipoEmpresa;
 import com.cursejavaee.erp.repository.Empresas;
 import com.cursejavaee.erp.repository.RamoAtividades;
+import com.cursejavaee.erp.service.CadastroEmpresaService;
 import com.cursejavaee.erp.util.FacesMessages;
 
 
@@ -28,6 +29,9 @@ public class GestaoEmpresasBean implements Serializable {
 	@Inject
 	private FacesMessages messages;
 	
+	@Inject
+	private CadastroEmpresaService cadastroEmpresaService;
+	
 	private List<Empresa> listaEmpresas;
 	
 	private String termoPesquisa;
@@ -35,7 +39,22 @@ public class GestaoEmpresasBean implements Serializable {
 	@Inject
 	private RamoAtividades ramoAtividades;
 	
+	private Empresa empresa;
+	
 	private Converter ramoAtividadeConverter;
+	
+	public void prepararNovaEmpresa() {
+		empresa = new Empresa();
+	}
+	
+	public void salvar() {
+		cadastroEmpresaService.salvar(empresa);
+		
+		if(jaHouvePesquisa()) {
+			pesquisar();
+		}
+		messages.info("Empresa cadastrada com sucesso.");
+	}
 	
 	public void pesquisar() {
 		listaEmpresas = empresas.pesquisar(termoPesquisa);
@@ -47,6 +66,10 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	public void todasEmpresas() {
 		listaEmpresas = empresas.todas();
+	}
+	
+	private boolean jaHouvePesquisa() {
+		return termoPesquisa != null && !"".equals(termoPesquisa);
 	}
 	
 	public List<Empresa> getListaEmpresas() {
@@ -75,5 +98,9 @@ public class GestaoEmpresasBean implements Serializable {
 	public Converter getRamoAtividadeConverter() {
 		return ramoAtividadeConverter;
 	}
-
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+	
 }
