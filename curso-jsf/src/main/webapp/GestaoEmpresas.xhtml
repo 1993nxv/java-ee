@@ -51,18 +51,23 @@
 									 disabled="#{not gestaoEmpresasBean.empresaSeleciona}"
 									 actionListener="#{gestaoEmpresasBean.excluir}"
 									 update="messages empresasDataTable toolBar"
-									 process="@this"/>
+									 process="@this"> 
+									 <p:confirm icon="pi pi-exclamation-circle" header="Confirmação de exclusão"
+									 			message="Tem certeza que deseja excluir esse registro?"/>
+					</p:commandButton>
 						
 					<i class="pi pi-ellipsis-v"/>
 						
-					<p:commandButton title="Exportar" icon="pi pi-file-o"/>
+					<p:commandButton title="Exportar" icon="pi pi-file-export" ajax="false">
+						<p:dataExporter type="xls" target="empresasDataTable" fileName="Empresas"/>
+					</p:commandButton>
 						
 				</f:facet>
 			</p:toolbar>
 				
 				<p:dataTable id="empresasDataTable" value="#{gestaoEmpresasBean.listaEmpresas}"
 					var="empresa" emptyMessage="Nenhuma informação a ser exibida!"
-					paginator="true" rows="10" paginatorPosition="bottom"
+					paginator="true" rows="6" paginatorPosition="bottom"
 					selectionMode="single" selection="#{gestaoEmpresasBean.empresa}"
 					rowKey="#{empresa.id}">
 					
