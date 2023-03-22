@@ -1,4 +1,4 @@
-package com.cursejavaee.erp.model;
+package com.cursejavaee.erp.domain.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

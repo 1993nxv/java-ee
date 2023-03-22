@@ -4,7 +4,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	template="WEB-INF/templante/Layout.xhtml">
+	template="/WEB-INF/templante/Layout.xhtml">
 
 <ui:define name="titulo"> 
 	Cadastro de Empresas
@@ -13,7 +13,7 @@
 <ui:define name="conteudo">
 
 	<f:metadata>
-		<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}"/>
+		<f:viewAction action="#{gestaoEmpresasMB.todasEmpresas}"/>
     </f:metadata>
     		
 		<h:form id="frm">
@@ -24,32 +24,32 @@
 				<f:facet name="left">
 						
 					<p:inputText id="termoPesquisa" placeholder="Digite um termo para pesquisa..."
-								 size="30" value="#{gestaoEmpresasBean.termoPesquisa}"/>
+								 size="30" value="#{gestaoEmpresasMB.termoPesquisa}"/>
 						
 					<p:commandButton value="Pesquisar" icon="pi pi-search"
-								 	 actionListener="#{gestaoEmpresasBean.pesquisar}"
+								 	 actionListener="#{gestaoEmpresasMB.pesquisar}"
 									 update="empresasDataTable messages" process="@this termoPesquisa"/>
 						
 					<i class="pi pi-ellipsis-v"/>
 						
 					<p:commandButton value="Nova" style="margin: 0px 0px 0px 5px;" icon="pi pi-plus"
-									 actionListener="#{gestaoEmpresasBean.prepararNovaEmpresa}"
+									 actionListener="#{gestaoEmpresasMB.prepararNovaEmpresa}"
 									 oncomplete="PF('empresaDialogWidgetVar').show()"
 									 update="empresaDialog" process="@this">
 									 <p:resetInput target="empresaDialog"/>
 					</p:commandButton>		
 								 
 					<p:commandButton title="Editar" style="margin: 0px 0px 0px 5px;" icon="pi pi-pencil"
-									 disabled="#{not gestaoEmpresasBean.empresaSeleciona}"
-									 actionListener="#{gestaoEmpresasBean.prepararEdicao}"
+									 disabled="#{not gestaoEmpresasMB.empresaSeleciona}"
+									 actionListener="#{gestaoEmpresasMB.prepararEdicao}"
 									 oncomplete="PF('empresaDialogWidgetVar').show()"
 									 update="empresaDialog" process="@this">
 									 <p:resetInput target="empresaDialog"/>
 					</p:commandButton>
 						
 					<p:commandButton title="Excluir" style="margin: 0px 0px 0px 5px;" icon="pi pi-trash"
-									 disabled="#{not gestaoEmpresasBean.empresaSeleciona}"
-									 actionListener="#{gestaoEmpresasBean.excluir}"
+									 disabled="#{not gestaoEmpresasMB.empresaSeleciona}"
+									 actionListener="#{gestaoEmpresasMB.excluir}"
 									 update="messages empresasDataTable toolBar"
 									 process="@this"> 
 									 <p:confirm icon="pi pi-exclamation-circle" header="Confirmação de exclusão"
@@ -65,16 +65,16 @@
 				</f:facet>
 			</p:toolbar>
 				
-				<p:dataTable id="empresasDataTable" value="#{gestaoEmpresasBean.listaEmpresas}"
+				<p:dataTable id="empresasDataTable" value="#{gestaoEmpresasMB.listaEmpresas}"
 					var="empresa" emptyMessage="Nenhuma informação a ser exibida!"
 					paginator="true" rows="6" paginatorPosition="bottom"
-					selectionMode="single" selection="#{gestaoEmpresasBean.empresa}"
+					selectionMode="single" selection="#{gestaoEmpresasMB.empresa}"
 					rowKey="#{empresa.id}">
 					
 					<p:ajax event="rowSelect" update="frm:toolBar"/>
 					<p:ajax event="rowUnselect" update="frm:toolBar"/>
 					
-					<p:column headerText="Razão social" sortBy="#{empresa.razaoSocial}">
+					<p:column headerText="Razão social" sortBy="#{empresa.razaoSocial}" filterBy="#{empresa.razaoSocial}">
 						<h:outputText value="#{empresa.razaoSocial}" />
 					</p:column>
 					
@@ -100,44 +100,44 @@
 				<p:defaultCommand target="salvarCommandButton" scope="empresaDialog"/>
 				
 				<h:panelGrid columns="2" id="empresaPanelGrid"
-							 rendered="#{gestaoEmpresasBean.empresa ne null}">
+							 rendered="#{gestaoEmpresasMB.empresa ne null}">
 							 
 					<p:outputLabel value="Razão social: " for="razaoSocial"/>
 					<p:inputText id="razaoSocial" size="80" maxlength="120"
-								 value="#{gestaoEmpresasBean.empresa.razaoSocial}"/>
+								 value="#{gestaoEmpresasMB.empresa.razaoSocial}"/>
 					
 					<p:outputLabel value="Nome fantasia: " for="nomeFantasia"/>
 					<p:inputText id="nomeFantasia" size="80" maxlength="80"
-								 value="#{gestaoEmpresasBean.empresa.nomeFantasia}"/>
+								 value="#{gestaoEmpresasMB.empresa.nomeFantasia}"/>
 					
 					<p:outputLabel value="Tipo empresa: " for="tipo"/>
-						<p:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}">
+						<p:selectOneMenu id="tipo" value="#{gestaoEmpresasMB.empresa.tipo}">
 							<f:selectItem itemLabel="Selecione..."/>
-							<f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
+							<f:selectItems value="#{gestaoEmpresasMB.tiposEmpresa}"
 										   var="tipoEmpresa" itemLabel="#{tipoEmpresa.descricao}"
 										   itemValue="#{tipoEmpresa}"/>
 						</p:selectOneMenu>
 						
 					<p:outputLabel value="CNPJ: " for="cnpj" />
 					<p:inputMask id="cnpj" mask="99.999.999/9999-99" size="18" maxlength="18"
-								 value="#{gestaoEmpresasBean.empresa.cnpj}"/>
+								 value="#{gestaoEmpresasMB.empresa.cnpj}"/>
 					
 					<p:outputLabel value="Data fundação: " for="dataFundacao"/>
 					<p:datePicker id="dataFundacao" pattern="dd/MM/yyyy" size="30"
-								  value="#{gestaoEmpresasBean.empresa.dataFundacao}"/>
+								  value="#{gestaoEmpresasMB.empresa.dataFundacao}"/>
 					
 					<p:outputLabel value="Ramo atividade: " for="ramoAtividade"/>
 					<p:autoComplete id="ramoAtividade" size="80" 
-									value="#{gestaoEmpresasBean.empresa.ramoAtividade}"
-									completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"
-									converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
+									value="#{gestaoEmpresasMB.empresa.ramoAtividade}"
+									completeMethod="#{gestaoEmpresasMB.completarRamoAtividade}"
+									converter="#{gestaoEmpresasMB.ramoAtividadeConverter}"
 									var="ramoAtividade"
 									itemLabel="#{ramoAtividade.descricao}" 
-									itemValue="#{ramoAtividade}"/>
+									itemValue="#{ramoAtividade}" queryDelay="1200"/>
 					
 					<p:outputLabel/>
 					<p:commandButton id="salvarCommandButton"
-									 value="Salvar" actionListener="#{gestaoEmpresasBean.salvar}"
+									 value="Salvar" actionListener="#{gestaoEmpresasMB.salvar}"
 									 update="empresaPanelGrid empresaMessages"
 									 oncomplete="if (!args.validationFailed){PF('empresaDialogWidgetVar').hide()}"
 									 process="empresaDialog"/>

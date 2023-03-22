@@ -6,7 +6,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import com.cursejavaee.erp.model.RamoAtividade;
+import com.cursejavaee.erp.domain.entity.RamoAtividade;
 
 
 

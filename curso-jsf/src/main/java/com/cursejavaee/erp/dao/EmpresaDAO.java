@@ -1,4 +1,4 @@
-package com.cursejavaee.erp.repository;
+package com.cursejavaee.erp.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,20 +7,19 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.cursejavaee.erp.domain.entity.Empresa;
 
-import com.cursejavaee.erp.model.Empresa;
 
-
-public class Empresas implements Serializable{
+public class EmpresaDAO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private EntityManager manager;
 
-	public Empresas(){}
+	public EmpresaDAO(){}
 
-	public Empresas(EntityManager manager) {
+	public EmpresaDAO(EntityManager manager) {
 		this.manager = manager;
 	}
 

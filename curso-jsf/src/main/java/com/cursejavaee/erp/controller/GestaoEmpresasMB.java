@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -11,23 +12,19 @@ import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
 
-import com.cursejavaee.erp.model.Empresa;
-import com.cursejavaee.erp.model.RamoAtividade;
-import com.cursejavaee.erp.model.TipoEmpresa;
-import com.cursejavaee.erp.repository.Empresas;
-import com.cursejavaee.erp.repository.RamoAtividades;
+import com.cursejavaee.erp.domain.entity.Empresa;
+import com.cursejavaee.erp.domain.entity.RamoAtividade;
+import com.cursejavaee.erp.domain.enumeration.TipoEmpresaEnum;
 import com.cursejavaee.erp.service.CadastroEmpresaService;
+import com.cursejavaee.erp.service.RamoAtividadeService;
 import com.cursejavaee.erp.util.FacesMessages;
 
-
 @Named
+@ManagedBean(name = "gestaoEmpresasMB")
 @ViewScoped
-public class GestaoEmpresasBean implements Serializable {
+public class GestaoEmpresasMB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	private Empresas empresas;
 	
 	@Inject
 	private FacesMessages messages;
@@ -35,14 +32,13 @@ public class GestaoEmpresasBean implements Serializable {
 	@Inject
 	private CadastroEmpresaService cadastroEmpresaService;
 	
+	@Inject
+	private RamoAtividadeService ramoAtividadeService;
+	
+	private Empresa empresa;
 	private List<Empresa> listaEmpresas;
 	
 	private String termoPesquisa;
-	
-	@Inject
-	private RamoAtividades ramoAtividades;
-	
-	private Empresa empresa;
 	
 	private Converter ramoAtividadeConverter;
 	
@@ -73,7 +69,7 @@ public class GestaoEmpresasBean implements Serializable {
 	}
 	
 	public void pesquisar() {
-		listaEmpresas = empresas.pesquisar(termoPesquisa);
+		listaEmpresas = cadastroEmpresaService.pesquisar(termoPesquisa);
 		
 		if (listaEmpresas.isEmpty()) {
 			messages.info("Sua consulta não retornou registros.");
@@ -81,7 +77,7 @@ public class GestaoEmpresasBean implements Serializable {
 	}
 	
 	public void todasEmpresas() {
-		listaEmpresas = empresas.todas();
+		listaEmpresas = cadastroEmpresaService.todasEmpresas();
 	}
 	
 	public void atualizarResgistros() {
@@ -109,12 +105,12 @@ public class GestaoEmpresasBean implements Serializable {
 		return termoPesquisa;
 	}
 	
-	public TipoEmpresa[] getTiposEmpresa() {
-		return TipoEmpresa.values();
+	public TipoEmpresaEnum[] getTiposEmpresa() {
+		return TipoEmpresaEnum.values();
 	}
 	
 	public List<RamoAtividade> completarRamoAtividade(String termo){
-		List<RamoAtividade> listaRamoAtividades = ramoAtividades.pesquisar(termo);
+		List<RamoAtividade> listaRamoAtividades = ramoAtividadeService.completarRamoAtividade(termo);
 		ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividades);
 		return listaRamoAtividades;
 	}

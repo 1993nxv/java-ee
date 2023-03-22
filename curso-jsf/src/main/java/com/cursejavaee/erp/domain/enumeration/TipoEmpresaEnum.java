@@ -1,6 +1,6 @@
-package com.cursejavaee.erp.model;
+package com.cursejavaee.erp.domain.enumeration;
 
-public enum TipoEmpresa {
+public enum TipoEmpresaEnum {
 	
 	MEI("Microempreendedor Individual"),
 	EIRELI("Empresa Individual de Responsabilidade Limitada"),
@@ -9,7 +9,7 @@ public enum TipoEmpresa {
 	
 	private String descricao;
 	
-	TipoEmpresa(String descricao){
+	TipoEmpresaEnum(String descricao){
 		this.descricao = descricao;
 	}
 	

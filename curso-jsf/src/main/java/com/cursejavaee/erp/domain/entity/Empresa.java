@@ -1,4 +1,4 @@
-package com.cursejavaee.erp.model;
+package com.cursejavaee.erp.domain.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
+
+import com.cursejavaee.erp.domain.enumeration.TipoEmpresaEnum;
 
 
 
@@ -60,7 +62,7 @@ public class Empresa implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 30)
-	private TipoEmpresa tipo;
+	private TipoEmpresaEnum tipo;
 		
 	public Long getId() {
 		return id;
@@ -94,11 +96,11 @@ public class Empresa implements Serializable {
 		this.cnpj = cnpj;
 	}
 	
-	public TipoEmpresa getTipo() {
+	public TipoEmpresaEnum getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoEmpresa tipo) {
+	public void setTipo(TipoEmpresaEnum tipo) {
 		this.tipo = tipo;
 	}
 
