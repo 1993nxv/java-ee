@@ -2,6 +2,7 @@ package com.cursejavaee.erp.domain.entity;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,13 @@ public class Usuario implements Serializable {
 	@Column(name = "password", nullable = false, length = 32)
 	String password;
 	
+	
+	public Usuario() {}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -50,9 +58,4 @@ public class Usuario implements Serializable {
 		this.password = HashUtils.getHashMd5(password);
 	}
 	
-	@Override
-	public String toString() {
-		return this.user + this.password;
-	}
-
 }

@@ -12,11 +12,11 @@ import com.cursejavaee.erp.domain.entity.Usuario;
 public class UsuarioDAO implements Serializable {
 
 	private static final long serialVersionUID = 7223004338914537389L;
-
+	
 	@Inject
 	private EntityManager manager;
-
-	public UsuarioDAO(){}
+	
+	public UsuarioDAO() {}
 
 	public UsuarioDAO(EntityManager manager) {
 		this.manager = manager;
@@ -31,7 +31,13 @@ public class UsuarioDAO implements Serializable {
 	    TypedQuery<Usuario> query = manager.createQuery(jpql, Usuario.class);
 	    query.setParameter("user", usuario.getUser());
 	    query.setParameter("password", usuario.getPassword());
-	    return !query.getResultList().isEmpty();
+	    
+	    if (!query.getResultList().isEmpty()) { 
+	    	
+	    	usuario.setId(query.getSingleResult().getId());
+	    }
+	    
+	    return !query.getResultList().isEmpty(); 
 	}
 	
 	public Usuario guardar(Usuario usuario) {

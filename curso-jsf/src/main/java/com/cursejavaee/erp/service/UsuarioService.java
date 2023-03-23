@@ -16,7 +16,7 @@ public class UsuarioService implements Serializable {
 	@Inject
 	private UsuarioDAO usuarioDAO;
 	
-	
+
 	public Boolean login(Usuario usuario) {
 		return usuarioDAO.login(usuario);
 	}
