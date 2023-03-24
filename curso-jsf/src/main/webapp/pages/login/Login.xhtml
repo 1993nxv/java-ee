@@ -7,7 +7,6 @@
 	template="/WEB-INF/templante/Layout.xhtml">
 
 <ui:define name="titulo"> 
-	Faça login no sistema.
 </ui:define>
 
 <ui:define name="conteudo">
@@ -17,21 +16,22 @@
     </f:metadata>
 
     		
-		<h:form id="formLogin">
+		<h:form id="formLogin" style="height:1080px;">
 			
-			<p:messages id="messages"></p:messages>
+			<p:messages id="messages" style="padding-top:300px;"></p:messages>
 					
-				<h:panelGrid columns="2" id="loginPanelGrid">
-							 
-					<p:outputLabel value="Usuario: " for="user"/>
-					<p:inputText id="user" size="80" maxlength="80"
+				<h:panelGrid columns="1" id="loginPanelGrid" >
+					
+					<p:outputLabel value="Usuario:" id="Usuario" for="user"/>		 	
+					<p:inputText placeholder="Usuario" id="user" size="80" maxlength="80"
 								 value="#{autenticacaoMB.usuario.user}"/>
-					
-					<p:outputLabel value="Senha: " for="password"/>
-					<p:password id="password" size="32" maxlength="32"
+								 
+					<p:outputLabel value="Senha:" id="Senha" for="password"/>
+					<p:password placeholder="Senha"  id="password" size="32" maxlength="32"
 								 value="#{autenticacaoMB.usuario.password}"/>
 					
-					<p:commandButton id="loginCommandButton"
+					<p:outputLabel/>
+					<p:commandButton id="loginCommandButton" style="width:318px;"
 									 value="Login" action="#{autenticacaoMB.fazerLogin}"
 									 update="messages"/>
 				</h:panelGrid>
