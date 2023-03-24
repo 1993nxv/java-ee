@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.convert.Converter;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -21,7 +23,7 @@ import com.cursejavaee.erp.util.FacesMessages;
 
 @Named
 @ManagedBean(name = "gestaoEmpresasMB")
-@ViewScoped
+@SessionScoped
 public class GestaoEmpresasMB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -42,7 +44,15 @@ public class GestaoEmpresasMB implements Serializable {
 	
 	private Converter ramoAtividadeConverter;
 	
-	public void prepararNovaEmpresa() {
+	@ManagedProperty(value = "#{autenticacaoMB}")
+	private  AutenticacaoMB autenticacao;
+	
+	@Inject
+	public GestaoEmpresasMB(AutenticacaoMB autenticacao) {
+		this.autenticacao = autenticacao;
+	}
+	
+	public void prepararNovaEmpresa() {	
 		empresa = new Empresa();
 	}
 	
@@ -75,6 +85,7 @@ public class GestaoEmpresasMB implements Serializable {
 			messages.info("Sua consulta não retornou registros.");
 		}	
 	}
+	
 	
 	public void todasEmpresas() {
 		listaEmpresas = cadastroEmpresaService.todasEmpresas();
@@ -129,6 +140,23 @@ public class GestaoEmpresasMB implements Serializable {
 	
 	public boolean isEmpresaSeleciona() {
 		return empresa != null && empresa.getId() != null;
+	}
+	
+	public String verificaAutenticacao() {
+		if (autenticacao.getLogado()){
+			return "";
+		}else {
+			return "/pages/login/Login.xhtml?faces-redirect=true";
+		}
+	}
+	
+	public String getUsuario() {
+		String user = autenticacao.getUsuarioLogado().getUser();
+		return user.toUpperCase();
+	}
+	
+	public String logout() {
+		return autenticacao.logout();
 	}
 	
 }

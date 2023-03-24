@@ -14,10 +14,11 @@
 
 	<f:metadata>
 		<f:viewAction action="#{gestaoEmpresasMB.todasEmpresas}"/>
+		<f:viewAction action="#{gestaoEmpresasMB.verificaAutenticacao}"/>
     </f:metadata>
-    		
+    		        
 		<h:form id="frm">
-			
+						
 			<p:messages id="messages"></p:messages>
 			
 			<p:toolbar id="toolBar">
@@ -58,9 +59,13 @@
 						
 					<i class="pi pi-ellipsis-v"/>
 						
-					<p:commandButton title="Exportar" icon="pi pi-file-export" ajax="false">
+					<p:commandButton title="Exportar" icon="pi pi-file-export" style="margin: 0px 200px 0px 0px;" ajax="false">
 						<p:dataExporter type="xls" target="empresasDataTable" fileName="Empresas"/>
 					</p:commandButton>
+					
+
+					<p:outputLabel value="Seja bem vindo! #{gestaoEmpresasMB.usuario}" style="margin: 0px 15px 0px 0px;"/>
+					<p:commandButton title="Logout" icon="pi pi-sign-out" action="#{gestaoEmpresasMB.logout}"/>
 						
 				</f:facet>
 			</p:toolbar>

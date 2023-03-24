@@ -25,11 +25,11 @@ public class Usuario implements Serializable {
 	
 	@NotEmpty
 	@Column(name = "user_usuario", nullable = false, length = 80)
-	String user;
+	private String user;
 	
 	@NotEmpty
 	@Column(name = "password", nullable = false, length = 32)
-	String password;
+	private String password;
 	
 	
 	public Usuario() {}
@@ -56,6 +56,11 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = HashUtils.getHashMd5(password);
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", user=" + user + ", password=" + password + "]";
 	}
 	
 }

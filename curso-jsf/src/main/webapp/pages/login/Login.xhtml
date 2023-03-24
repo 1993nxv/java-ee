@@ -12,9 +12,10 @@
 
 <ui:define name="conteudo">
 
-	<f:metadata>
-		<f:viewAction action="#{usuarioMB.preparaUsuario}"/>
+ <f:metadata>
+		<f:viewAction action="#{autenticacaoMB.preparaUsuario}"/>
     </f:metadata>
+
     		
 		<h:form id="formLogin">
 			
@@ -24,14 +25,14 @@
 							 
 					<p:outputLabel value="Usuario: " for="user"/>
 					<p:inputText id="user" size="80" maxlength="80"
-								 value="#{usuarioMB.usuario.user}"/>
+								 value="#{autenticacaoMB.usuario.user}"/>
 					
 					<p:outputLabel value="Senha: " for="password"/>
 					<p:password id="password" size="32" maxlength="32"
-								 value="#{usuarioMB.usuario.password}"/>
+								 value="#{autenticacaoMB.usuario.password}"/>
 					
 					<p:commandButton id="loginCommandButton"
-									 value="Login" actionListener="#{usuarioMB.fazerLogin}"
+									 value="Login" action="#{autenticacaoMB.fazerLogin}"
 									 update="messages"/>
 				</h:panelGrid>
 			
